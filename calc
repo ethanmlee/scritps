@@ -1,0 +1,3 @@
+#/bin/zsh
+bc -v | head -n 1; echo
+bc -ql
