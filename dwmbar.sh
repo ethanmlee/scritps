@@ -2,7 +2,7 @@
 
 STATUSBAR() {
   # Time
-  TIME=$(date '+%a %d.%m.%+4Y %I:%M%p %Z')
+  TIME=$(date '+%a %d.%m.%+4Y %I:%M%P %Z')
   # Volume
   VOLUME=$(pamixer --get-volume-human)
   # Battery
