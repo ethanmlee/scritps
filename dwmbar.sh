@@ -16,6 +16,7 @@ STATUSBAR() {
 
   # Battery
   #         
+  CAPACITY=$(cat /sys/class/power_supply/BAT?/capacity)
   [ $CAPACITY -ge  0 ] && [ $CAPACITY -lt  10 ] && CHARGE=
   [ $CAPACITY -ge 10 ] && [ $CAPACITY -lt  20 ] && CHARGE=
   [ $CAPACITY -ge 20 ] && [ $CAPACITY -lt  40 ] && CHARGE=
@@ -25,7 +26,6 @@ STATUSBAR() {
   [ $CAPACITY -ge 90 ] && [ $CAPACITY -lt 100 ] && CHARGE=
   UPOWER=$(upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep -E "state" | awk '{ print $NF }')
   [ "$UPOWER" = "charging" ] || [ "$UPOWER" = "fully-charged" ] && CHARGE=
-  CAPACITY=$(cat /sys/class/power_supply/BAT?/capacity)
   BATTERY="$CHARGE $CAPACITY%"
 
   # Internet
