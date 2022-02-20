@@ -9,7 +9,7 @@ STATUSBAR() {
   # remember last volume value when muted
   # 墳奄奔ﱝ 婢 ⚠
   VOLUME=$(pamixer --get-volume-human | sed 's/.$//')
-  [ $VOLUME = "muted" ] && VOLUME="婢"
+  [ $VOLUME = "mute" ] && VOLUME="婢"
   [ $VOLUME = 0 ] &&  VOLUME="奄 $VOLUME%"
   [ $VOLUME -gt  0 ] && [ $VOLUME -lt  50 ] && VOLUME="奔 $VOLUME%"
   [ $VOLUME -ge 50 ] && VOLUME="墳 $VOLUME%"
