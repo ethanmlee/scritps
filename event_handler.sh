@@ -1,6 +1,9 @@
 #!/bin/sh
 case $1 in
 
+processor)
+  refreshbar.sh ;;
+
 ac_adapter)
   sleep 1 && refreshbar.sh ;;
 

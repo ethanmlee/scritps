@@ -3,7 +3,7 @@
 STATUSBAR() {
   # Time
   # dynamically set timezone?
-  TIME=$(date '+%a, %b %d, %4Y %I:%M%P %Z')
+  TIME=$(date '+%a, %b %d, %4Y %I:%M:%S%P %Z')
 
   # Volume
   # remember last volume value when muted
@@ -23,7 +23,7 @@ STATUSBAR() {
   [ $CAPACITY -ge 40 ] && [ $CAPACITY -lt  60 ] && CHARGE=
   [ $CAPACITY -ge 60 ] && [ $CAPACITY -lt  80 ] && CHARGE=
   [ $CAPACITY -ge 80 ] && [ $CAPACITY -lt  90 ] && CHARGE=
-  [ $CAPACITY -ge 90 ] && [ $CAPACITY -lt 100 ] && CHARGE=
+  [ $CAPACITY -ge 90 ] && [ $CAPACITY -le 100 ] && CHARGE=
   UPOWER=$(upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep -E "state" | awk '{ print $NF }')
   [ "$UPOWER" = "charging" ] || [ "$UPOWER" = "fully-charged" ] && CHARGE=
   BATTERY="$CHARGE $CAPACITY%"
@@ -59,12 +59,10 @@ STATUSBAR
 
 while :
 do
-  #every 30 seconds on the minute
   sleep $((60 - $(date +%S) ))
   STATUSBAR
-  sleep 30
-  STATUSBAR
+
 done
 
 #notes
-#    
+#   
