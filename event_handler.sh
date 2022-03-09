@@ -1,6 +1,9 @@
 #!/bin/sh
 case $1 in
 
+jack/headphone)
+  refreshbar.sh ;;
+
 processor)
   refreshbar.sh ;;
 
