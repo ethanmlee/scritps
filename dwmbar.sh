@@ -3,16 +3,17 @@
 STATUSBAR() {
   # Time
   # dynamically set timezone?
-  TIME=$(date '+%a, %b %d, %4Y %I:%M:%S%P %Z')
+  TIME=$(date '+%a, %b %d, %4Y %I:%M%P %Z')
 
   # Volume
   # remember last volume value when muted
   # 墳奄奔ﱝ 婢 ⚠
   VOLUME=$(pamixer --get-volume-human | sed 's/.$//')
-  [ $VOLUME = "mute" ] && VOLUME="婢"
-  [ $VOLUME = 0 ] &&  VOLUME="奄 $VOLUME%"
-  [ $VOLUME -gt  0 ] && [ $VOLUME -lt  50 ] && VOLUME="奔 $VOLUME%"
-  [ $VOLUME -ge 50 ] && VOLUME="墳 $VOLUME%"
+  [ $VOLUME = 0 ] &&  VOLICON=奄
+  [ $VOLUME != "mute" ] && [ $VOLUME -gt  0 ] && [ $VOLUME -lt  50 ] && VOLICON=奔
+  [ $VOLUME != "mute" ] && [ $VOLUME -ge 50 ] && VOLICON=墳
+  [ $VOLUME != "mute" ] && VOLUME="$VOLICON $VOLUME%"
+  [ $VOLUME =  "mute" ] && VOLUME=婢
 
   # Battery
   #         
@@ -37,15 +38,17 @@ STATUSBAR() {
   MEMORY=" $(free -h | grep 'Mem' | awk '{ print $3 }')"
 
   # CPU
-  #      ⚠
+  #     
   CPU=$(sensors acpitz-acpi-0 -u | grep temp1_input | awk '{ print $2 }' | sed 's/\..*//g')
-  [ $CPU -gt  0 ] && [ $CPU -le 55 ] && CPU=" $CPU°C"
-  [ $CPU -gt 55 ] && [ $CPU -le 60 ] && CPU=" $CPU°C"
-  [ $CPU -gt 60 ] && [ $CPU -le 65 ] && CPU=" $CPU°C"
-  [ $CPU -gt 65 ] && [ $CPU -le 75 ] && CPU=" $CPU°C"
-  [ $CPU -gt 75 ] && CPU=" $CPU°C"
+  [ $CPU -gt  0 ] && [ $CPU -le 55 ] && CPUICON=
+  [ $CPU -gt 55 ] && [ $CPU -le 60 ] && CPUICON=
+  [ $CPU -gt 60 ] && [ $CPU -le 65 ] && CPUICON=
+  [ $CPU -gt 65 ] && [ $CPU -le 75 ] && CPUICON=
+  [ $CPU -gt 75 ] && CPUICON=
+  CPU="$CPUICON $CPU°C"
 
   # toggle indicators
+  # setup indicatiors object and combine everything here
   DESKTOP="";  cat /tmp/desktop_mode.tmp; [ $? = 0 ] && DESKTOP="  |"
   TOUCHPAD=""; cat /tmp/touchpad_off.tmp; [ $? = 0 ] && TOUCHPAD="  |"
 
