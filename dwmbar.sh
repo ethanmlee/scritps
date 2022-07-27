@@ -48,9 +48,10 @@ STATUSBAR() {
   CPU="$CPUICON $CPU°C"
 
   # toggle indicators
+  # hack  
   # setup indicatiors object and combine everything here
-  DESKTOP="";  cat /tmp/desktop_mode.tmp; [ $? = 0 ] && DESKTOP="  |"
-  TOUCHPAD=""; cat /tmp/touchpad_off.tmp; [ $? = 0 ] && TOUCHPAD="  |"
+  DESKTOP="";  cat /tmp/desktop_mode.tmp; [ $? = 0 ] && DESKTOP="  │"
+  TOUCHPAD=""; cat /tmp/touchpad_off.tmp; [ $? = 0 ] && TOUCHPAD="  │"
 
 
   # XSETROOT
