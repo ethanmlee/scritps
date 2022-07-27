@@ -31,16 +31,12 @@ button/lid)
         # if lid is still closed after 5 seconds then run through lock/sleep if statements
         grep -q closed /proc/acpi/button/lid/*/state
         if [ $? = 0 ] && [ $(autorandr --current) = "default" ]; then
-          # suspend and lock (do not relock if already locked)
-          pgrep lock.sh
-          if [ $? = 1 ]; then
-            lock.sh & doas systemctl suspend
-          else
-            doas systemctl suspend
-          fi
+          # suspend and lock
+          ~/.scripts/lock.sh & doas pm-suspend
         fi
       fi
     fi
-  esac ;;
+  ;;
+  esac
+;;
 esac
-
