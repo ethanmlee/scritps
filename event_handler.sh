@@ -6,7 +6,8 @@ jack/headphone)
 ;;
 
 ac_adapter)
-  sleep 1 && refreshbar.sh ;;
+  sleep 5 && refreshbar.sh
+;;
 
 button/mute|button/volumeup|button/volumedown)
   sleep 0.1 && refreshbar.sh ;;
