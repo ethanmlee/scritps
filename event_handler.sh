@@ -2,10 +2,8 @@
 case $1 in
 
 jack/headphone)
-  refreshbar.sh ;;
-
-processor)
-  refreshbar.sh ;;
+  refreshbar.sh
+;;
 
 ac_adapter)
   sleep 1 && refreshbar.sh ;;
