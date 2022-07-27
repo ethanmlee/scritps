@@ -65,8 +65,4 @@ while :
 do
   sleep $((60 - $(date +%S) ))
   STATUSBAR
-
 done
-
-#notes
-#   
