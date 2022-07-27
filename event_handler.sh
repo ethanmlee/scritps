@@ -9,8 +9,14 @@ ac_adapter)
   sleep 5 && refreshbar.sh
 ;;
 
-button/mute|button/volumeup|button/volumedown)
-  sleep 0.1 && refreshbar.sh ;;
+#button/vendor)
+#  sleep 0.1 && grep -q enabled /proc/acpi/ibm/bluetooth 
+#  if [ $? = 0 ]; then
+#    rfkill block bluetooth
+#  else
+#    rfkill unblock bluetooth
+#  fi
+#;;
 
 button/lid)
   case $3 in
