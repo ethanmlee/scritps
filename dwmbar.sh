@@ -29,9 +29,10 @@ STATUSBAR() {
   BATTERY="$CHARGE $CAPACITY%"
 
   # Internet
-  # 直睊
-  [ $(cat /sys/class/net/w*/operstate) = "up" ] && NET=直
-  [ $(cat /sys/class/net/w*/operstate) = "down" ] && NET=睊
+  #  
+  nc -zw1 google.com 443 
+  [ $? = 0 ] && NET=
+  [ $? != 0 ] && NET=!
 
   # Memory
   MEMORY=" $(free -h | grep 'Mem' | awk '{ print $3 }')"
