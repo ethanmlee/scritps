@@ -1,0 +1,2 @@
+#!/bin/sh
+urxvtcd --hold -title "weechat" -e ssh -t ryzen-ny 'dtach -A 1 weechat' 
