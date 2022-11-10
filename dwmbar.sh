@@ -7,7 +7,7 @@ STATUSBAR() {
 
   # Volume
   # remember last volume value when muted
-  MIC=$(pamixer --source alsa_input.pci-0000_00_1f.3.analog-stereo --get-volume-human)
+  MIC=$(pamixer --source alsa_input.usb-Antlion_Audio_Antlion_Wireless_Microphone-00.mono-fallback --get-volume-human)
   [ $MIC = "muted" ] && MIC="" || MIC="^c#ed1b23^  ^d^│"
 
 
@@ -19,19 +19,19 @@ STATUSBAR() {
   [ $VOLUME != "mute" ] && VOLUME="$MIC$VOLICON $VOLUME% ^d^"
   [ $VOLUME =  "mute" ] && VOLUME="$MIC 婢 "
 
-  # Battery
-  #         
-  CAPACITY=$(cat /sys/class/power_supply/BAT?/capacity)
-  [ $CAPACITY -gt 90 ] && [ $CAPACITY -le 100 ] && CHARGE= #&& BATCOL="^c#000000^^b#55fa55^"
-  [ $CAPACITY -ge 80 ] && [ $CAPACITY -lt  90 ] && CHARGE= #&& BATCOL="^c#000000^^b#55fa55^"
-  [ $CAPACITY -ge 60 ] && [ $CAPACITY -lt  80 ] && CHARGE=
-  [ $CAPACITY -ge 40 ] && [ $CAPACITY -lt  60 ] && CHARGE=
-  [ $CAPACITY -ge 30 ] && [ $CAPACITY -lt  40 ] && CHARGE= && BATCOL="^c#fafa46^"
-  [ $CAPACITY -ge 10 ] && [ $CAPACITY -lt  30 ] && CHARGE= && BATCOL="^c#ed1b23^"
-  [ $CAPACITY -ge  0 ] && [ $CAPACITY -lt  10 ] && CHARGE= && BATCOL="^c#000000^^b#ed1b23^"
-  UPOWER=$(upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep -E "state" | awk '{ print $NF }')
-  [ "$UPOWER" = "charging" ] || [ "$UPOWER" = "fully-charged" ] && CHARGE="^c#46e8fa^" && BATCOL=""
-  BATTERY="$BATCOL $CHARGE $CAPACITY% ^d^"
+#  # Battery
+#  #         
+#  CAPACITY=$(cat /sys/class/power_supply/BAT?/capacity)
+#  [ $CAPACITY -gt 90 ] && [ $CAPACITY -le 100 ] && CHARGE= #&& BATCOL="^c#000000^^b#55fa55^"
+#  [ $CAPACITY -ge 80 ] && [ $CAPACITY -lt  90 ] && CHARGE= #&& BATCOL="^c#000000^^b#55fa55^"
+#  [ $CAPACITY -ge 60 ] && [ $CAPACITY -lt  80 ] && CHARGE=
+#  [ $CAPACITY -ge 40 ] && [ $CAPACITY -lt  60 ] && CHARGE=
+#  [ $CAPACITY -ge 30 ] && [ $CAPACITY -lt  40 ] && CHARGE= && BATCOL="^c#fafa46^"
+#  [ $CAPACITY -ge 10 ] && [ $CAPACITY -lt  30 ] && CHARGE= && BATCOL="^c#ed1b23^"
+#  [ $CAPACITY -ge  0 ] && [ $CAPACITY -lt  10 ] && CHARGE= && BATCOL="^c#000000^^b#ed1b23^"
+#  UPOWER=$(upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep -E "state" | awk '{ print $NF }')
+#  [ "$UPOWER" = "charging" ] || [ "$UPOWER" = "fully-charged" ] && CHARGE="^c#46e8fa^" && BATCOL=""
+#  BATTERY="$BATCOL $CHARGE $CAPACITY% ^d^"
 
   # Internet
   #  
@@ -64,7 +64,7 @@ STATUSBAR() {
 
 
   # XSETROOT
-  xsetroot -name "$DESKTOP$TOUCHPAD$VOLUME│$BATTERY│ $MEMORY │$CPU│ $NET │ $TIME"
+  xsetroot -name "$DESKTOP$TOUCHPAD$VOLUME│ $MEMORY │$CPU│ $NET │ $TIME"
 }
 
 #init bar on script start
