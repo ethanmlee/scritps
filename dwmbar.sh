@@ -22,16 +22,20 @@ STATUSBAR() {
   # Battery
   #         
   CAPACITY=$(cat /sys/class/power_supply/BAT?/capacity)
-  [ $CAPACITY -ge  0 ] && CHARGE= && BATCOL="^c#000000^^b#ed1b23^"
-  [ $CAPACITY -ge 10 ] && CHARGE= && BATCOL="^c#ed1b23^"
-  [ $CAPACITY -ge 30 ] && CHARGE= && BATCOL="^c#fafa46^"
-  [ $CAPACITY -ge 40 ] && CHARGE= && BATCOL=""
-  [ $CAPACITY -ge 60 ] && CHARGE= && BATCOL=""
-  [ $CAPACITY -ge 80 ] && CHARGE= && BATCOL=""
-  [ $CAPACITY -gt 90 ] && CHARGE= && BATCOL=""
-  UPOWER=$(upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep -E "state" | awk '{ print $NF }')
-  [ "$UPOWER" = "charging" ] || [ "$UPOWER" = "fully-charged" ] && CHARGE="^c#46e8fa^" && BATCOL=""
-  BATTERY="│$BATCOL $CHARGE $CAPACITY% ^d^"
+  if [ -z $CAPACITY ]; then
+    BATTERY=""
+  else
+    [ $CAPACITY -ge  0 ] && CHARGE= && BATCOL="^c#000000^^b#ed1b23^"
+    [ $CAPACITY -ge 10 ] && CHARGE= && BATCOL="^c#ed1b23^"
+    [ $CAPACITY -ge 30 ] && CHARGE= && BATCOL="^c#fafa46^"
+    [ $CAPACITY -ge 40 ] && CHARGE= && BATCOL=""
+    [ $CAPACITY -ge 60 ] && CHARGE= && BATCOL=""
+    [ $CAPACITY -ge 80 ] && CHARGE= && BATCOL=""
+    [ $CAPACITY -gt 90 ] && CHARGE= && BATCOL=""
+    UPOWER=$(upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep -E "state" | awk '{ print $NF }')
+    [ "$UPOWER" = "charging" ] || [ "$UPOWER" = "fully-charged" ] && CHARGE="^c#46e8fa^" && BATCOL=""
+    BATTERY="│$BATCOL $CHARGE $CAPACITY% ^d^"
+  fi
 
   # Internet
   #  
