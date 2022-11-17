@@ -7,8 +7,8 @@ STATUSBAR() {
 
   # Volume
   # remember last volume value when muted
-  MIC=$(pamixer --source alsa_input.pci-0000_00_1f.3.analog-stereo --get-volume-human)
-  [ $MIC = "muted" ] && MIC="" || MIC="^c#ed1b23^  ^d^│"
+  MIC=$(pactl get-source-mute 1 | awk  '{print $2}')
+  [ $MIC = "yes" ] && MIC="" || MIC="^c#ed1b23^  ^d^│"
 
 
   VOLUME=$(pamixer --get-volume-human | sed 's/.$//')
