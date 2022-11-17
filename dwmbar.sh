@@ -11,7 +11,7 @@ STATUSBAR() {
   [ $MIC = "yes" ] && MIC="" || MIC="^c#ed1b23^  ^d^│"
 
 
-  VOLUME=$(pamixer --get-volume-human | sed 's/.$//')
+  VOLUME=$(pactl get-sink-volume @DEFAULT_SINK@ | head -1 | awk '{print $5;}' | sed 's/.$//')
   [ $VOLUME = 0 ] &&  VOLICON=
   [ $VOLUME != "mute" ] && [ $VOLUME -gt 0 ] && VOLICON=" "
   [ $VOLUME != "mute" ] && [ $VOLUME -ge 50 ] && VOLICON=" 墳"
