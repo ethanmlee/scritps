@@ -49,9 +49,9 @@ STATUSBAR() {
   # Memory
   MEMORY="  $(free -h | grep 'Mem' | awk '{ print $3 }') "
 
-  # CPU
+  # CPU TEMP
   #     
-  CPU=$(sensors acpitz-acpi-0 -u | grep temp1_input | awk '{ print $2 }' | sed 's/\..*//g')
+  CPU=$(sensors coretemp-isa-0000 -u | grep temp1_input | awk '{ print $2 }' | sed 's/\..*//g')
   [ $CPU -ge  0 ] && CPUICON=" "
   [ $CPU -gt 45 ] && CPUICON=" "
   [ $CPU -gt 60 ] && CPUICON=" "
