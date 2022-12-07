@@ -12,12 +12,13 @@ STATUSBAR() {
 
 
   VOLUME=$(pactl get-sink-volume @DEFAULT_SINK@ | head -1 | awk '{print $5;}' | sed 's/.$//')
+  MUTE=$(pactl get-sink-mute @DEFAULT_SINK@ | awk '{print $2}')
   [ $VOLUME = 0 ] &&  VOLICON=
-  [ $VOLUME != "mute" ] && [ $VOLUME -gt 0 ] && VOLICON=" "
-  [ $VOLUME != "mute" ] && [ $VOLUME -ge 50 ] && VOLICON=" 墳"
-  [ $VOLUME != "mute" ] && [ $VOLUME -gt 100 ] && VOLICON="^c#ed1b23^ !墳"
-  [ $VOLUME != "mute" ] && VOLUME="$MIC$VOLICON $VOLUME% ^d^"
-  [ $VOLUME =  "mute" ] && VOLUME="$MIC 婢 "
+  [ $VOLUME -gt 0 ] && VOLICON=" "
+  [ $VOLUME -ge 50 ] && VOLICON=" 墳"
+  [ $VOLUME -gt 100 ] && VOLICON="^c#ed1b23^ !墳"
+  [ $MUTE = "yes" ] && VOLICON=" 婢"
+  VOLUME="$MIC$VOLICON $VOLUME% ^d^"
 
   # Battery
   #         
