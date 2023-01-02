@@ -6,7 +6,7 @@ jack/headphone)
 ;;
 
 ac_adapter)
-  sleep 5 && refreshbar.sh
+  sleep 2.5 && refreshbar.sh
 ;;
 
 #button/vendor)

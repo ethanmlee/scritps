@@ -33,8 +33,8 @@ STATUSBAR() {
     [ $CAPACITY -ge 60 ] && CHARGE= && BATCOL=""
     [ $CAPACITY -ge 80 ] && CHARGE= && BATCOL=""
     [ $CAPACITY -gt 90 ] && CHARGE= && BATCOL=""
-    UPOWER=$(upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep -E "state" | awk '{ print $NF }')
-    [ "$UPOWER" = "charging" ] || [ "$UPOWER" = "fully-charged" ] && CHARGE="^c#46e8fa^" && BATCOL=""
+    UPOWER=$(cat /sys/class/power_supply/BAT*/status)
+    [ "$UPOWER" = "Charging" ] || [ "$CAPACITY" = "100" ] && CHARGE="^c#46e8fa^" && BATCOL=""
     BATTERY="│$BATCOL $CHARGE $CAPACITY% ^d^"
   fi
 
