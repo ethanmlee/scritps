@@ -12,7 +12,7 @@ STATUSBAR() {
 
   # Volume
   # remember last volume value when muted
-  MIC=$(pactl get-source-mute 1 | awk  '{print $2}')
+  MIC=$(pactl get-source-mute @DEFAULT_SOURCE@ | awk  '{print $2}')
   [ $MIC = "yes" ] && MIC="" || MIC="^c#ed1b23^  ^d^│"
 
 
