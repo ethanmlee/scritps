@@ -1,5 +1,10 @@
 #!/bin/sh
 
+BACKGROUND=$(xrdb -query | grep background: | cut -f 2 | head -n1)
+COL1=$(xrdb -query | grep color1: | cut -f 2)
+COL3=$(xrdb -query | grep color3: | cut -f 2)
+COL6=$(xrdb -query | grep color6: | cut -f 2)
+
 STATUSBAR() {
   # Time
   # dynamically set timezone?
@@ -26,15 +31,15 @@ STATUSBAR() {
   if [ -z $CAPACITY ]; then
     BATTERY=""
   else
-    [ $CAPACITY -ge  0 ] && CHARGE= && BATCOL="^c#000000^^b#ed1b23^"
-    [ $CAPACITY -ge 10 ] && CHARGE= && BATCOL="^c#ed1b23^"
-    [ $CAPACITY -ge 30 ] && CHARGE= && BATCOL="^c#fafa46^"
+    [ $CAPACITY -ge  0 ] && CHARGE= && BATCOL="^c$BACKGROUND^^b$COL1^"
+    [ $CAPACITY -ge 10 ] && CHARGE= && BATCOL="^c$COL1^"
+    [ $CAPACITY -ge 30 ] && CHARGE= && BATCOL="^c$COL3^"
     [ $CAPACITY -ge 40 ] && CHARGE= && BATCOL=""
     [ $CAPACITY -ge 60 ] && CHARGE= && BATCOL=""
     [ $CAPACITY -ge 80 ] && CHARGE= && BATCOL=""
     [ $CAPACITY -gt 90 ] && CHARGE= && BATCOL=""
     UPOWER=$(cat /sys/class/power_supply/BAT*/status)
-    [ "$UPOWER" = "Charging" ] || [ "$CAPACITY" = "100" ] && CHARGE="^c#46e8fa^" && BATCOL=""
+    [ "$UPOWER" = "Charging" ] || [ "$CAPACITY" = "100" ] && CHARGE="^c$COL6^" && BATCOL=""
     BATTERY="│$BATCOL $CHARGE $CAPACITY% ^d^"
   fi
 
@@ -57,12 +62,12 @@ STATUSBAR() {
   [ $CPU -gt 45 ] && CPUICON=" "
   [ $CPU -gt 60 ] && CPUICON=" "
   [ $CPU -gt 65 ] && CPUICON=" "
-  [ $CPU -gt 75 ] && CPUICON="^c#ed1b23^ !"
+  [ $CPU -gt 75 ] && CPUICON="^c$COL1^ !"
   CPU="$CPUICON $CPU°C ^d^"
 
   # toggle indicators
   # setup indicatiors object and combine everything here
-  DESKTOP="";  cat /tmp/desktop_mode.tmp; [ $? = 0 ] && DESKTOP=" ^c#fafa46^^d^ │"
+  DESKTOP="";  cat /tmp/desktop_mode.tmp; [ $? = 0 ] && DESKTOP=" ^c$COL3^^d^ │"
   TOUCHPAD=""; cat /tmp/touchpad_off.tmp; [ $? = 0 ] && TOUCHPAD="  │"
 
 
