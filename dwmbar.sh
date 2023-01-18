@@ -12,7 +12,7 @@ STATUSBAR() {
 
   # Volume
   # remember last volume value when muted
-  MIC=$(pactl get-source-mute 1 | awk  '{print $2}')
+  MIC=$(pactl get-source-mute @DEFAULT_SOURCE@ | awk  '{print $2}')
   [ $MIC = "yes" ] && MIC="" || MIC="^c#ed1b23^  ^d^│"
 
 
@@ -39,7 +39,7 @@ STATUSBAR() {
     [ $CAPACITY -ge 80 ] && CHARGE= && BATCOL=""
     [ $CAPACITY -gt 90 ] && CHARGE= && BATCOL=""
     UPOWER=$(cat /sys/class/power_supply/BAT*/status)
-    [ "$UPOWER" = "Charging" ] || [ "$CAPACITY" = "100" ] && CHARGE="^c$COL6^" && BATCOL=""
+    [ "$UPOWER" = "Charging" ] && CHARGE="^c$COL6^" && BATCOL=""
     BATTERY="│$BATCOL $CHARGE $CAPACITY% ^d^"
   fi
 
