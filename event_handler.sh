@@ -38,7 +38,7 @@ button/lid)
             [ $? != 0 ] && ~/.scripts/lock.sh
           else
             pgrep -f physlock > /dev/null
-            [ $? != 0 ] && ~/.scripts/lock.sh & doas systemctl suspend || doas systemctl suspend
+            [ $? != 0 ] && ~/.scripts/lock.sh & doas systemctl hibernate || doas systemctl hibernate
 	  fi
         fi
       fi
