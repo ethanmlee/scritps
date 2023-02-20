@@ -72,7 +72,7 @@ STATUSBAR() {
 
 
   # XSETROOT
-  xsetroot -name "$DESKTOP$TOUCHPAD$VOLUME$BATTERY│$MEMORY│$CPU│$NET│$TIME"
+  xsetroot -name "$DESKTOP$TOUCHPAD$VOLUME$BATTERY│$MEMORY│$CPU│$NET│$TIME "
 }
 
 #init bar on script start
