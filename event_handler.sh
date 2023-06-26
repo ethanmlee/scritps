@@ -1,23 +1,6 @@
 #!/bin/sh
 case $1 in
 
-jack/headphone)
-  refreshbar.sh
-;;
-
-ac_adapter)
-  sleep 2.5 && refreshbar.sh
-;;
-
-#button/vendor)
-#  sleep 0.1 && grep -q enabled /proc/acpi/ibm/bluetooth 
-#  if [ $? = 0 ]; then
-#    rfkill block bluetooth
-#  else
-#    rfkill unblock bluetooth
-#  fi
-#;;
-
 button/lid)
   case $3 in
   close)
