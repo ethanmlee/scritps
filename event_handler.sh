@@ -1,32 +1,33 @@
 #!/bin/sh
-
 case $1 in
   button/lid)
     case $3 in
       close)
+        #if not in desktop mode
+        [ ! -f /tmp/desktop_mode.tmp ] && \
 
-        # functions
-        lidState() {grep -q closed /proc/acpi/button/lid/*/state}
+				#and if lid is closed
+        LID_STATE=$(cat /proc/acpi/button/lid/*/state | awk '{print $2}') && \
+        [ "$LID_STATE" = "closed" ] && \
 
-        isDesktopMode() {test -f /tmp/desktop_mode.tmp}
+        #then lock system and sleep for 5 seconds
+        lock.sh & \
+        sleep 5 && \
 
-        isLocked() {pgrep -f physlock > /dev/null}
+        #then if lid is still closed
+        LID_STATE_AGAIN=$(cat /proc/acpi/button/lid/*/state | awk '{print $2}') && \
+        [ "$LID_STATE_AGAIN" = "closed" ] && \
 
-        lockAndHibernate() {
-          ! isLocked && ~/.scripts/lock.sh &
-          doas systemctl hibernate
-        }
+        #and if physlock is still running
+        pgrep -f physlock > /dev/null && \
 
-        # start of logic
-        if ! isDesktopMode && lidState; then
-          sleep 5
-        fi
-        
-        UPOWER=$(upower -i /org/freedesktop/UPower/devices/battery_BAT0 | awk '/state/ {print $NF}')
-        [ ! isDesktopMode ] && lidState && ([ "$UPOWER" = "charging" ] || [ "$UPOWER" = "fully-charged" ]) && ! isLocked && ~/.scripts/lock.sh
-        [ ! isDesktopMode ] && lidState && ([ "$UPOWER" != "charging" ] && [ "$UPOWER" != "fully-charged" ]) && lockAndHibernate
+        #and if the battery state is not charging or fully charged
+        BATTERY_STATE=$(upower -i /org/freedesktop/UPower/devices/battery_BAT1 | awk '/state/ {print $NF}') && \
+        { [ "$BATTERY_STATE" != "charging" ] && [ "$BATTERY_STATE" != "fully-charged" ]; } && \
+
+        #then hibernate
+        doas systemctl hibernate
         ;;
     esac
     ;;
-
 esac
