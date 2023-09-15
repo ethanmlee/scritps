@@ -6,7 +6,7 @@ case $1 in
         #if not in desktop mode
         [ ! -f /tmp/desktop_mode.tmp ] && \
 
-				#and if lid is closed
+        #and if lid is closed
         LID_STATE=$(cat /proc/acpi/button/lid/*/state | awk '{print $2}') && \
         [ "$LID_STATE" = "closed" ] && \
 
@@ -30,4 +30,11 @@ case $1 in
         ;;
     esac
     ;;
+
+  button/mute | button/volumedown | button/volumeup)
+    pkill dwmbar.sh
+    dwmbar.sh & disown
+    ;;
+
 esac
+
