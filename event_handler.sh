@@ -31,10 +31,10 @@ case $1 in
     esac
     ;;
 
-  button/mute | button/volumedown | button/volumeup)
-    pkill dwmbar.sh
-    dwmbar.sh & disown
-    ;;
+#  button/mute | button/volumedown | button/volumeup)
+#    pkill dwmbar.sh
+#    dwmbar.sh & disown
+#    ;;
 
 esac
 
