@@ -6,4 +6,4 @@ HOST_LIST() {
 	grep "^Host\s\+[^*]" "$SSH_CONFIG" | cut -d " " -f 2- | grep -v -E "(github\.com|gitlab\.com)"
 }
 
-HOST_LIST | dmenu_script.sh -s -l 10 | xargs -I {} urxvtcd --hold -e ssh -t {}
+HOST_LIST | dmenu_script.sh -s -l 10 | awk '{print $1}' | xargs -I {} urxvtcd -e ssh -t {}
