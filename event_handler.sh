@@ -1,5 +1,7 @@
 #!/bin/sh
 case $1 in
+  # only usefull for laptops
+  # /etc/systemd/logind.conf: HandleLidSwitch=ignore
   button/lid)
     case $3 in
       close)
