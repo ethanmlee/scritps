@@ -9,5 +9,5 @@ trap 'rm -f "$FIFO"; kill "$!"' EXIT
 while read -r event; do
     set -- $event
     event_handler.sh "$@"
-    #echo "$event"
+    echo "$event"
 done < "$FIFO"
