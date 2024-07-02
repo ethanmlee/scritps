@@ -1,4 +1,7 @@
 #!/bin/sh
+# todo:
+# - option to write to file (both "enter" times and final time)
+# - make more efficent and faster (though this may be bottlenecked by terminal)
 
 START_TIME=$(date +%s)
 

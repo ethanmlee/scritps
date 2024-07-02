@@ -1,4 +1,5 @@
 #!/bin/sh
+# Doesn't work needs to be finished
 directory="/tmp/qs/"
 file="$directory$1"
 

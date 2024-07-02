@@ -1,10 +1,7 @@
 #!/bin/sh
-
-# default vars
 t=60
 format="%I:%M %p"
 
-# arguments
 case $@ in
   *"-s"* | --seconds)
     t=1
